@@ -403,7 +403,7 @@
     }
 
     .showcase {
-    .showcase {
+   .showcase {
   background:
     linear-gradient(180deg, rgba(6,8,12,0.38), rgba(6,8,12,0.82)),
     url('https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
@@ -413,13 +413,9 @@
 }
 
 .experience-showcase {
-.showcase {
   background:
     linear-gradient(180deg, rgba(6,8,12,0.38), rgba(6,8,12,0.82)),
-    url('https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-  min-height: 460px;
-  display: flex;
-  align-items: end;
+    url('images/dbjlaogotype.png') center/cover no-repeat;
 }
 
 .experience-showcase {
@@ -504,7 +500,19 @@
       border: 1px solid rgba(255,255,255,0.05);
       color: #d7deea;
     }
+.slideshow-thumbs::-webkit-scrollbar {
+  height: 10px;
+}
 
+.slideshow-thumbs::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.04);
+  border-radius: 999px;
+}
+
+.slideshow-thumbs::-webkit-scrollbar-thumb {
+  background: rgba(27,152,232,0.45);
+  border-radius: 999px;
+}
     footer {
       padding: 30px 0 60px;
       color: #9ea7b3;
@@ -745,7 +753,18 @@
         <button type="button" onclick="changeSlide(1)" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(6,8,12,0.68); color: white; font-size: 1.4rem; cursor: pointer;">&#10095;</button>
       </div>
 
-      <div id="slideshow-thumbs" class="slideshow-thumbs" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px;"></div>
+     <div
+  id="slideshow-thumbs"
+  class="slideshow-thumbs"
+  style="
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-behavior: smooth;
+  ">
+</div>
 
       <div style="margin-top: 16px; color: #9ea7b3; font-size: 0.95rem;">
         Update only the <strong>slideshowImages</strong> list in the script below when you want to change your gallery.
@@ -793,7 +812,7 @@
   <script async src="https://www.instagram.com/embed.js"></script>
   <!-- END INSTAGRAM SCRIPT -->
 
- <!-- START SLIDESHOW SCRIPT -->
+<!-- START SLIDESHOW SCRIPT -->
 <script>
   const slideshowImages = [
     { src: 'images/porsche.jpeg', alt: 'Porsche Panamera' },
@@ -829,7 +848,8 @@
         alt="${image.alt}"
         onclick="setSlide(${index})"
         style="
-          width: 100%;
+          flex: 0 0 auto;
+          width: 160px;
           height: 110px;
           object-fit: contain;
           object-position: center;
