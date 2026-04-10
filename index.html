@@ -834,42 +834,4 @@
   <footer>
     <div class="container">
       © 2026 Details by Jazz. Premium mobile detailing.
-    </div>
-  </footer>
-  <script>
-    const slideshowImages = [
-      'images/porsche.jpeg',
-      'images/slideshow2.jpg',
-      'images/slideshow3.jpg',
-      'images/slideshow4.jpg'
-    ];
-
-    let currentSlide = 0;
-
-    function updateSlide() {
-      const mainImage = document.getElementById('slideshow-image');
-      const thumbs = document.querySelectorAll('.slideshow-thumbs img');
-      if (!mainImage || !thumbs.length) return;
-
-      mainImage.src = slideshowImages[currentSlide];
-      thumbs.forEach((thumb, index) => {
-        thumb.style.border = index === currentSlide
-          ? '2px solid rgba(27,152,232,0.75)'
-          : '2px solid rgba(255,255,255,0.08)';
-      });
-    }
-
-    function changeSlide(direction) {
-      currentSlide = (currentSlide + direction + slideshowImages.length) % slideshowImages.length;
-      updateSlide();
-    }
-
-    function setSlide(index) {
-      currentSlide = index;
-      updateSlide();
-    }
-
-    updateSlide();
-  </script>
-</body>
-</html>
+  
