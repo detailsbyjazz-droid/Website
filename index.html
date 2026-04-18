@@ -1,878 +1,396 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Details by Jazz</title>
-  <style>
-    :root {
-      --black: #06080c;
-      --black-2: #0d1017;
-      --silver: #c9d0d8;
-      --silver-soft: #9ea7b3;
-      --blue: #1b98e8;
-      --blue-soft: rgba(27, 152, 232, 0.14);
-      --white: #f5f7fb;
-      --line: rgba(201, 208, 216, 0.16);
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-      --radius: 24px;
-      --radius-sm: 16px;
-      --max: 1180px;
-    }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(27,152,232,0.18), transparent 28%),
-        radial-gradient(circle at 85% 15%, rgba(201,208,216,0.12), transparent 22%),
-        linear-gradient(180deg, #05070b 0%, #0a0d14 54%, #06080c 100%);
-      color: var(--white);
-      line-height: 1.5;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    .container {
-      width: min(calc(100% - 32px), var(--max));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(6, 8, 12, 0.72);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .brand-top {
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--silver);
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
-
-    .brand-bottom {
-      font-size: 0.92rem;
-      color: #dce3ee;
-      opacity: 0.82;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      color: #d7deea;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover { color: var(--blue); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      transition: 180ms ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue) 0%, #58b9f4 100%);
-      color: white;
-      box-shadow: 0 16px 32px rgba(27, 152, 232, 0.28);
-    }
-
-    .btn-primary:hover { transform: translateY(-1px); }
-
-    .btn-secondary {
-      border-color: rgba(201,208,216,0.24);
-      background: rgba(255,255,255,0.03);
-      color: var(--silver);
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(27,152,232,0.46);
-      color: var(--white);
-    }
-
-    .hero {
-      padding: 84px 0 48px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(27,152,232,0.22);
-      background: rgba(27,152,232,0.09);
-      color: #d8eeff;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(3rem, 7vw, 5.6rem);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-    }
-
-    .hero h1 .silver {
-      display: block;
-      color: var(--silver);
-      text-shadow: 0 0 30px rgba(201,208,216,0.08);
-    }
-
-    .hero h1 .blue {
-      display: block;
-      color: white;
-    }
-
-    .hero p {
-      max-width: 640px;
-      font-size: 1.08rem;
-      color: #d2dae6;
-      margin: 22px 0 28px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      min-width: 160px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .stat strong {
-      display: block;
-      color: var(--white);
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
-
-    .stat span {
-      color: var(--silver-soft);
-      font-size: 0.92rem;
-    }
-
-    .hero-card {
-      position: relative;
-      padding: 22px;
-      border-radius: 30px;
-      background:
-        linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 45%),
-        linear-gradient(180deg, rgba(10,13,20,0.95), rgba(5,7,11,0.98));
-      border: 1px solid rgba(201,208,216,0.14);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      min-height: 530px;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: auto -10% 64% auto;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(27,152,232,0.35), transparent 62%);
-      pointer-events: none;
-      filter: blur(12px);
-    }
-
-    .mock-window {
-      position: relative;
-      z-index: 1;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: #0b0f17;
-      height: 100%;
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .mock-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.03);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      color: #cfd8e4;
-      font-size: 0.88rem;
-    }
-
-    .dots {
-      display: flex;
-      gap: 8px;
-    }
-
-    .dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #6b7481;
-    }
-
-    .mock-body {
-      padding: 24px;
-      display: grid;
-      gap: 18px;
-      background:
-        linear-gradient(180deg, rgba(6,8,12,0.72), rgba(6,8,12,0.94)),
-        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-    }
-
-    .mock-chip {
-      width: fit-content;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--silver);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .mock-title {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.02;
-      max-width: 340px;
-      margin: 0;
-    }
-
-    .mock-panel {
-      align-self: end;
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(6, 8, 12, 0.74);
-      border: 1px solid rgba(201,208,216,0.12);
-      backdrop-filter: blur(10px);
-    }
-
-    .mock-panel-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .mock-item {
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .mock-item strong {
-      display: block;
-      margin-bottom: 6px;
-      color: white;
-    }
-
-    .mock-item span {
-      color: var(--silver-soft);
-      font-size: 0.92rem;
-    }
-
-    section {
-      padding: 40px 0;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      letter-spacing: -0.03em;
-    }
-
-    .section-head p {
-      margin: 0;
-      max-width: 560px;
-      color: #cbd4df;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      padding: 24px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .card-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      color: white;
-      background: linear-gradient(135deg, rgba(27,152,232,0.22), rgba(201,208,216,0.14));
-      border: 1px solid rgba(201,208,216,0.12);
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 1.18rem;
-    }
-
-    .card p {
-      margin: 0;
-      color: #cbd4df;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .showcase, .pricing, .cta {
-      padding: 30px;
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-.showcase {
-  background:
-    linear-gradient(180deg, rgba(6,8,12,0.38), rgba(6,8,12,0.82)),
-    url('https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-  min-height: 460px;
-  display: flex;
-  align-items: end;
-}
-
-.experience-showcase {
-  background:
-    linear-gradient(180deg, rgba(6,8,12,0.38), rgba(6,8,12,0.82)),
-    url('images/dbjlaogotype.png') center/cover no-repeat;
-}
-
-    }
-
-    .showcase-box h3, .pricing h3, .cta h3 { margin-top: 0; }
-
-    .pricing-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .price-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .price-row strong { display: block; font-size: 1rem; }
-    .price-row span { color: var(--silver-soft); font-size: 0.92rem; }
-    .price-tag { color: var(--blue); font-weight: 800; white-space: nowrap; }
-
-    .cta {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 20px;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .cta::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      top: -50px;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(27,152,232,0.28), transparent 64%);
-      filter: blur(10px);
-      pointer-events: none;
-    }
-
-    .contact-box {
-      padding: 22px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .contact-item {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.05);
-      color: #d7deea;
-    }
-.slideshow-thumbs::-webkit-scrollbar {
-  height: 10px;
-}
-
-.slideshow-thumbs::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.04);
-  border-radius: 999px;
-}
-
-.slideshow-thumbs::-webkit-scrollbar-thumb {
-  background: rgba(27,152,232,0.45);
-  border-radius: 999px;
-}
-    footer {
-      padding: 30px 0 60px;
-      color: #9ea7b3;
-      font-size: 0.94rem;
-    }
-
-    @media (max-width: 960px) {
-      .hero-grid,
-      .split,
-      .cta,
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card { min-height: 460px; }
-      .section-head { align-items: start; flex-direction: column; }
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 640px) {
-      .hero { padding-top: 56px; }
-      .hero h1 { line-height: 1; }
-      .stat { min-width: 100%; }
-      .mock-panel-grid { grid-template-columns: 1fr; }
-      .showcase, .pricing, .cta, .hero-card { padding: 20px; border-radius: 24px; }
-      .btn { width: 100%; }
-      .hero-actions { flex-direction: column; }
-    }
-  </style>
-</head>
-<body>
-  <!-- START HEADER -->
-  <header class="topbar">
-    <div class="container nav">
-      <a href="#top" class="brand">
-        <span class="brand-top">Details by Jazz</span>
-        <span class="brand-bottom">Premium Mobile Detailing</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#photos">Photos</a>
-        <a href="#experience">Experience</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <a class="btn btn-primary" href="#contact">Book Now</a>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+#app{display:flex;height:700px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;font-family:var(--font-sans)}
+#sidebar{width:230px;min-width:230px;background:var(--color-background-secondary);border-right:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;overflow:hidden}
+#sb-top{padding:12px;border-bottom:0.5px solid var(--color-border-tertiary)}
+#sb-top h2{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.sec-btn{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;margin-bottom:4px;border-radius:var(--border-radius-md);background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);font-size:12px;color:var(--color-text-primary);cursor:pointer;text-align:left}
+.sec-btn:hover{border-color:var(--color-border-secondary)}
+.sec-btn.active{border-color:#378ADD;color:#185FA5}
+#sb-fields{flex:1;overflow-y:auto;padding:12px}
+#sb-fields h2{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.field-group{margin-bottom:14px}
+.field-group label{display:block;font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
+.field-group input,.field-group textarea{width:100%;padding:7px 9px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;font-family:var(--font-sans);resize:vertical}
+.field-group textarea{min-height:68px;line-height:1.5}
+.field-group input:focus,.field-group textarea:focus{outline:2px solid rgba(55,138,221,.35);border-color:rgba(55,138,221,.5)}
+#canvas-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--color-background-tertiary)}
+#toolbar{padding:8px 14px;background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:10px}
+#toolbar span{font-size:12px;color:var(--color-text-secondary)}
+#export-btn{margin-left:auto;padding:6px 14px;border-radius:var(--border-radius-md);background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);font-size:12px;cursor:pointer;color:var(--color-text-primary)}
+#export-btn:hover{background:var(--color-background-secondary)}
+#preview{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.pv-section{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:18px 20px;cursor:pointer;transition:border-color .15s}
+.pv-section:hover{border-color:var(--color-border-secondary)}
+.pv-section.active{border:1.5px solid #378ADD}
+.pv-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-tertiary);margin-bottom:8px}
+.pv-title{font-size:17px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;line-height:1.3}
+.pv-sub{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.pv-price{display:inline-block;margin-top:6px;padding:3px 10px;background:var(--color-background-info);color:var(--color-text-info);border-radius:999px;font-size:12px;font-weight:500}
+.pv-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.pv-row:last-child{border-bottom:none}
+</style>
+
+<h2 class="sr-only">Details by Jazz website editor — select a section on the left to edit it</h2>
+
+<div id="app">
+  <div id="sidebar">
+    <div id="sb-top">
+      <h2>Sections</h2>
+      <button class="sec-btn active" onclick="selectSection('hero')">★ Hero</button>
+      <button class="sec-btn" onclick="selectSection('services')">◆ Services</button>
+      <button class="sec-btn" onclick="selectSection('pricing')">$ Pricing</button>
+      <button class="sec-btn" onclick="selectSection('contact')">@ Contact</button>
+      <button class="sec-btn" onclick="selectSection('footer')">— Footer</button>
     </div>
-  </header>
-  <!-- END HEADER -->
-
-  <main id="top">
-    <!-- START HERO SECTION -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">Premium Mobile Detailing on Oahu</div>
-          <h1>
-            <span class="silver">DETAILS</span>
-            <span class="blue">by Jazz</span>
-          </h1>
-          <p>
-            A premium detailing experience designed for clients who want their vehicle to look polished, protected, and professionally cared for without the hassle.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Request a Quote</a>
-            <a class="btn btn-secondary" href="#photos">View Photos</a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <strong>Premium Finish</strong>
-              <span>Luxury presentation with refined attention to detail.</span>
-            </div>
-            <div class="stat">
-              <strong>Mobile Service</strong>
-              <span>Convenient on-site detailing at your home or office.</span>
-            </div>
-            <div class="stat">
-              <strong>Client-Focused</strong>
-              <span>Professional, reliable, and built around your schedule.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="mock-window">
-            <div class="mock-top">
-              <div class="dots"><span></span><span></span><span></span></div>
-              <div>detailsbyjazz.com</div>
-            </div>
-            <div class="mock-body">
-              <div class="mock-chip">Executive Standard</div>
-              <h2 class="mock-title">At Details by Jazz, we provide high-quality mobile auto detailing on Oahu for clients who want convenience, professionalism, and real results. </h2>
-              <div class="mock-panel">
-                <div class="mock-panel-grid">
-                  <div class="mock-item">
-                    <strong>Interior Reset</strong>
-                    <span>Refined, clean, and presentable cabin finish.</span>
-                  </div>
-                  <div class="mock-item">
-                    <strong>Exterior Gloss</strong>
-                    <span>Deep shine with sleek paint protection.</span>
-                  </div>
-                  <div class="mock-item">
-                    <strong>Mobile Convenience</strong>
-                    <span>Delivered on-site with premium presentation.</span>
-                  </div>
-                  <div class="mock-item">
-                    <strong>Consistent Results</strong>
-                    <span>Keep your vehicle in top shape with a monthly plan.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END HERO SECTION -->
-
-    <!-- START SERVICES SECTION -->
-    <section id="services">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Built for a premium first impression</h2>
-          </div>
-          <p></p>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <div class="card-icon">01</div>
-            <h3>Interior Detailing</h3>
-            <p>Deep vacuuming, wipe-downs, glass cleaning, trim care, and a refined reset that leaves the cabin fresh and presentable.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon">02</div>
-            <h3>Exterior Detailing</h3>
-            <p>Foam wash, wheel cleaning, tire dressing, and protection-focused finishing for a sleek, high-end shine.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon">03</div>
-            <h3>Premium Add-Ons</h3>
-            <p>Paint enhancement, deeper correction, and elevated finish options for clients who want even more refinement.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-    <!-- END SERVICES SECTION -->
-
-    <!-- START PHOTOS SECTION -->
-    <section id="photos">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Recent work</h2>
-          </div>
-          <p>
-            Watch recent detailing results directly from Instagram and follow @detailsbyjazz for more premium transformations.
-          </p>
-        </div>
-        <div class="cards" style="align-items: start;">
-          <article class="card" style="padding: 14px; overflow: hidden;">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DWvayIHABR4/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:18px; box-shadow:0 0 1px 0 rgba(0,0,0,0.35),0 8px 24px 0 rgba(0,0,0,0.12); margin:0 auto; max-width:540px; min-width:280px; padding:0; width:100%;"></blockquote>
-          </article>
-          <article class="card" style="padding: 14px; overflow: hidden;">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DWpyyy9gGHS/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:18px; box-shadow:0 0 1px 0 rgba(0,0,0,0.35),0 8px 24px 0 rgba(0,0,0,0.12); margin:0 auto; max-width:540px; min-width:280px; padding:0; width:100%;"></blockquote>
-          </article>
-          <article class="card" style="padding: 14px; overflow: hidden;">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DVPABImkmP_/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:18px; box-shadow:0 0 1px 0 rgba(0,0,0,0.35),0 8px 24px 0 rgba(0,0,0,0.12); margin:0 auto; max-width:540px; min-width:280px; padding:0; width:100%;"></blockquote>
-          </article>
-        </div>
-        <div style="margin-top: 20px; display: flex; justify-content: center;">
-          <a class="btn btn-primary" href="https://www.instagram.com/detailsbyjazz/" target="_blank" rel="noopener noreferrer">Follow @detailsbyjazz</a>
-        </div>
-      </div>
-    </section>
-    <!-- END PHOTOS SECTION -->
-
-    <!-- START EXPERIENCE SECTION -->
-    <section id="experience">
-      <div class="container split">
-        <div class="showcase experience-showcase">
-          <div class="showcase-box">
-        
-            <p>
-           
-            </p>
-          </div>
-        </div>
-        <div class="pricing" id="pricing">
-          <div class="eyebrow" style="margin-bottom:10px;">Service Structure</div>
-          <h3 style="font-size:2rem; margin-bottom:8px;">Simple packages, elevated presentation</h3>
-          <p style="color:#cbd4df; margin-top:0;">Use these as placeholders or replace them with your exact pricing and package names.</p>
-          <div class="pricing-list">
-            <div class="price-row">
-              <div>
-                <strong>Refresh Detail</strong>
-                <span>Ideal for routine upkeep and clean presentation.</span>
-              </div>
-              <div class="price-tag">From $225</div>
-            </div>
-            <div class="price-row">
-              <div>
-                <strong>Premium Inside / Out</strong>
-                <span>Balanced interior reset and exterior gloss.</span>
-              </div>
-              <div class="price-tag">From $325</div>
-            </div>
-            <div class="price-row">
-              <div>
-                <strong>Correction + Protection</strong>
-                <span>Higher-end finish for standout presentation.</span>
-              </div>
-              <div class="price-tag">Custom Quote</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END EXPERIENCE SECTION -->
-
-    <!-- START SLIDESHOW SECTION -->
-<section id="slideshow">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <h2>Completed Work Gallery</h2>
-      </div>
-      <p>
-       Check out the variety of cars I have worked on, From Porsches, BMW's, Mercedes, Toyota, GMC and more
-      </p>
+    <div id="sb-fields">
+      <h2>Edit fields</h2>
+      <div id="fields-content"></div>
     </div>
-
-    <div class="showcase" style="background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); min-height: unset; display: block; padding: 22px;">
-      <div style="position: relative; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #0b0f17;">
-        <img id="slideshow-image" src="" alt="Completed detailing work" style="width: 100%; height: 560px; object-fit: contain; object-position: center; display: block; background: #0b0f17;" />
-        <button type="button" onclick="changeSlide(-1)" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(6,8,12,0.68); color: white; font-size: 1.4rem; cursor: pointer;">&#10094;</button>
-        <button type="button" onclick="changeSlide(1)" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(6,8,12,0.68); color: white; font-size: 1.4rem; cursor: pointer;">&#10095;</button>
-      </div>
-
-     <div
-  id="slideshow-thumbs"
-  class="slideshow-thumbs"
-  style="
-    display: flex;
-    gap: 14px;
-    margin-top: 16px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scroll-behavior: smooth;
-  ">
+  </div>
+  <div id="canvas-wrap">
+    <div id="toolbar">
+      <span>Live preview — click a section to edit</span>
+      <button id="export-btn" onclick="exportSite()">Export HTML ↓</button>
+    </div>
+    <div id="preview"></div>
+  </div>
 </div>
 
-      <div style="margin-top: 16px; color: #9ea7b3; font-size: 0.95rem;">
-        All images on this site belong to me, All work completed by Details by Jazz
+<script>
+const data = {
+  hero: {
+    eyebrow: 'Premium Mobile Detailing on Oahu',
+    h1a: 'DETAILS',
+    h1b: 'by Jazz',
+    tagline: 'A premium detailing experience designed for clients who want their vehicle to look polished, protected, and professionally cared for without the hassle.',
+    btn1: 'Request a Quote',
+    btn2: 'View Photos',
+    stat1title: 'Premium Finish',
+    stat1desc: 'Luxury presentation with refined attention to detail.',
+    stat2title: 'Mobile Service',
+    stat2desc: 'Convenient on-site detailing at your home or office.',
+    stat3title: 'Client-Focused',
+    stat3desc: 'Professional, reliable, and built around your schedule.',
+  },
+  services: {
+    heading: 'Built for a premium first impression',
+    s1title: 'Interior Detailing',
+    s1desc: 'Deep vacuuming, wipe-downs, glass cleaning, trim care, and a refined reset that leaves the cabin fresh and presentable.',
+    s2title: 'Exterior Detailing',
+    s2desc: 'Foam wash, wheel cleaning, tire dressing, and protection-focused finishing for a sleek, high-end shine.',
+    s3title: 'Premium Add-Ons',
+    s3desc: 'Paint enhancement, deeper correction, and elevated finish options for clients who want even more refinement.',
+  },
+  pricing: {
+    heading: 'Simple packages, elevated presentation',
+    sub: 'Transparent pricing for every level of service.',
+    p1name: 'Refresh Detail',
+    p1desc: 'Ideal for routine upkeep and clean presentation.',
+    p1price: 'From $225',
+    p2name: 'Premium Inside / Out',
+    p2desc: 'Balanced interior reset and exterior gloss.',
+    p2price: 'From $325',
+    p3name: 'Correction + Protection',
+    p3desc: 'Higher-end finish for standout presentation.',
+    p3price: 'Custom Quote',
+  },
+  contact: {
+    heading: 'Ready to upgrade your vehicle\'s presentation?',
+    sub: 'Contact me today to set an appointment or for more information.',
+    phone: '(808) 384-3052',
+    instagram: '@detailsbyjazz',
+    area: 'Oahu, Hawaii',
+  },
+  footer: {
+    text: '© 2026 Details by Jazz. Premium mobile detailing.',
+  }
+};
+
+const sections = ['hero','services','pricing','contact','footer'];
+let active = 'hero';
+
+const fieldDefs = {
+  hero: [
+    {key:'eyebrow',label:'Eyebrow badge text'},
+    {key:'h1a',label:'Headline line 1 (silver)'},
+    {key:'h1b',label:'Headline line 2'},
+    {key:'tagline',label:'Tagline paragraph',type:'textarea'},
+    {key:'btn1',label:'Primary button'},
+    {key:'btn2',label:'Secondary button'},
+    {key:'stat1title',label:'Stat 1 title'},{key:'stat1desc',label:'Stat 1 description'},
+    {key:'stat2title',label:'Stat 2 title'},{key:'stat2desc',label:'Stat 2 description'},
+    {key:'stat3title',label:'Stat 3 title'},{key:'stat3desc',label:'Stat 3 description'},
+  ],
+  services: [
+    {key:'heading',label:'Section heading'},
+    {key:'s1title',label:'Service 1 title'},{key:'s1desc',label:'Service 1 description',type:'textarea'},
+    {key:'s2title',label:'Service 2 title'},{key:'s2desc',label:'Service 2 description',type:'textarea'},
+    {key:'s3title',label:'Service 3 title'},{key:'s3desc',label:'Service 3 description',type:'textarea'},
+  ],
+  pricing: [
+    {key:'heading',label:'Section heading'},{key:'sub',label:'Subtitle',type:'textarea'},
+    {key:'p1name',label:'Package 1 name'},{key:'p1desc',label:'Package 1 description'},{key:'p1price',label:'Package 1 price'},
+    {key:'p2name',label:'Package 2 name'},{key:'p2desc',label:'Package 2 description'},{key:'p2price',label:'Package 2 price'},
+    {key:'p3name',label:'Package 3 name'},{key:'p3desc',label:'Package 3 description'},{key:'p3price',label:'Package 3 price'},
+  ],
+  contact: [
+    {key:'heading',label:'Heading',type:'textarea'},
+    {key:'sub',label:'Subtext',type:'textarea'},
+    {key:'phone',label:'Phone number'},
+    {key:'instagram',label:'Instagram handle'},
+    {key:'area',label:'Service area'},
+  ],
+  footer: [
+    {key:'text',label:'Footer text'},
+  ]
+};
+
+function selectSection(sec){
+  active=sec;
+  document.querySelectorAll('.sec-btn').forEach((b,i)=>b.classList.toggle('active',sections[i]===sec));
+  document.querySelectorAll('.pv-section').forEach(s=>s.classList.toggle('active',s.dataset.sec===sec));
+  renderFields();
+  document.querySelector(`[data-sec="${sec}"]`)?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderFields(){
+  const fc=document.getElementById('fields-content');
+  fc.innerHTML='';
+  (fieldDefs[active]||[]).forEach(f=>{
+    const g=document.createElement('div');
+    g.className='field-group';
+    const tag=f.type==='textarea'?'textarea':'input';
+    g.innerHTML=`<label>${f.label}</label><${tag}>${f.type==='textarea'?data[active][f.key]:''}</${tag}>`;
+    if(tag==='input') g.querySelector('input').value=data[active][f.key];
+    g.querySelector(tag).addEventListener('input',e=>{
+      data[active][f.key]=e.target.value;
+      renderPreview();
+    });
+    fc.appendChild(g);
+  });
+}
+
+function renderPreview(){
+  const pv=document.getElementById('preview');
+  pv.innerHTML='';
+  sections.forEach(sec=>{
+    const div=document.createElement('div');
+    div.className='pv-section'+(sec===active?' active':'');
+    div.dataset.sec=sec;
+    div.onclick=()=>selectSection(sec);
+    div.innerHTML=sectionPreview(sec);
+    pv.appendChild(div);
+  });
+}
+
+function sectionPreview(sec){
+  const d=data[sec];
+  if(sec==='hero') return `<div class="pv-label">Hero section</div>
+    <div style="font-size:10px;color:var(--color-text-tertiary);margin-bottom:6px;">${d.eyebrow}</div>
+    <div class="pv-title">${d.h1a} ${d.h1b}</div>
+    <div class="pv-sub">${d.tagline}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;">
+      <span style="padding:5px 12px;background:#378ADD;color:#fff;border-radius:999px;font-size:12px;">${d.btn1}</span>
+      <span style="padding:5px 12px;border:0.5px solid var(--color-border-secondary);border-radius:999px;font-size:12px;color:var(--color-text-secondary);">${d.btn2}</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      ${['1','2','3'].map(n=>`<div style="flex:1;min-width:120px;padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);"><div style="font-size:12px;font-weight:500;color:var(--color-text-primary);">${d['stat'+n+'title']}</div><div style="font-size:11px;color:var(--color-text-secondary);">${d['stat'+n+'desc']}</div></div>`).join('')}
+    </div>`;
+  if(sec==='services') return `<div class="pv-label">Services</div>
+    <div class="pv-title">${d.heading}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;">
+      ${['1','2','3'].map(n=>`<div style="padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);"><div style="font-size:12px;font-weight:500;margin-bottom:4px;">${d['s'+n+'title']}</div><div style="font-size:11px;color:var(--color-text-secondary);">${d['s'+n+'desc']}</div></div>`).join('')}
+    </div>`;
+  if(sec==='pricing') return `<div class="pv-label">Pricing</div>
+    <div class="pv-title">${d.heading}</div>
+    <div class="pv-sub" style="margin-bottom:10px;">${d.sub}</div>
+    ${['1','2','3'].map(n=>`<div class="pv-row"><div><div style="font-size:13px;font-weight:500;">${d['p'+n+'name']}</div><div style="font-size:11px;color:var(--color-text-secondary);">${d['p'+n+'desc']}</div></div><span class="pv-price">${d['p'+n+'price']}</span></div>`).join('')}`;
+  if(sec==='contact') return `<div class="pv-label">Contact</div>
+    <div class="pv-title">${d.heading}</div>
+    <div class="pv-sub" style="margin-bottom:10px;">${d.sub}</div>
+    <div style="font-size:13px;color:var(--color-text-primary);">📞 ${d.phone}</div>
+    <div style="font-size:13px;color:var(--color-text-primary);">📸 ${d.instagram}</div>
+    <div style="font-size:13px;color:var(--color-text-primary);">📍 ${d.area}</div>`;
+  if(sec==='footer') return `<div class="pv-label">Footer</div><div class="pv-sub">${d.text}</div>`;
+}
+
+function exportSite(){
+  const d=data;
+  const h=d.hero, s=d.services, p=d.pricing, c=d.contact, f=d.footer;
+  const html=`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Details by Jazz</title>
+<style>
+  :root{--black:#06080c;--black-2:#0d1017;--silver:#c9d0d8;--silver-soft:#9ea7b3;--blue:#1b98e8;--blue-soft:rgba(27,152,232,0.14);--white:#f5f7fb;--line:rgba(201,208,216,0.16);--shadow:0 24px 80px rgba(0,0,0,0.45);--radius:24px;--radius-sm:16px;--max:1180px}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:radial-gradient(circle at top left,rgba(27,152,232,0.18),transparent 28%),radial-gradient(circle at 85% 15%,rgba(201,208,216,0.12),transparent 22%),linear-gradient(180deg,#05070b 0%,#0a0d14 54%,#06080c 100%);color:var(--white);line-height:1.5}
+  a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+  .container{width:min(calc(100% - 32px),var(--max));margin:0 auto}
+  .topbar{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(6,8,12,0.72);border-bottom:1px solid rgba(255,255,255,0.05)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px}
+  .brand{display:flex;flex-direction:column;gap:3px}
+  .brand-top{letter-spacing:.24em;text-transform:uppercase;color:var(--silver);font-size:.8rem;font-weight:800}
+  .brand-bottom{font-size:.92rem;color:#dce3ee;opacity:.82}
+  .nav-links{display:flex;align-items:center;gap:24px;color:#d7deea;font-size:.95rem}
+  .nav-links a:hover{color:var(--blue)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:999px;border:1px solid transparent;font-weight:700;transition:180ms ease}
+  .btn-primary{background:linear-gradient(135deg,var(--blue) 0%,#58b9f4 100%);color:white;box-shadow:0 16px 32px rgba(27,152,232,0.28)}
+  .btn-primary:hover{transform:translateY(-1px)}
+  .btn-secondary{border-color:rgba(201,208,216,0.24);background:rgba(255,255,255,0.03);color:var(--silver)}
+  .btn-secondary:hover{border-color:rgba(27,152,232,0.46);color:var(--white)}
+  .hero{padding:84px 0 48px}
+  .hero-grid{display:grid;grid-template-columns:1.08fr 0.92fr;gap:32px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;border:1px solid rgba(27,152,232,0.22);background:rgba(27,152,232,0.09);color:#d8eeff;font-size:.82rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:18px}
+  .hero h1{margin:0;font-size:clamp(3rem,7vw,5.6rem);line-height:.95;letter-spacing:-.04em}
+  .hero h1 .silver{display:block;color:var(--silver)}
+  .hero h1 .blue{display:block;color:white}
+  .hero p{max-width:640px;font-size:1.08rem;color:#d2dae6;margin:22px 0 28px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+  .hero-stats{display:flex;gap:18px;flex-wrap:wrap}
+  .stat{min-width:160px;padding:16px 18px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02));border:1px solid var(--line);box-shadow:var(--shadow)}
+  .stat strong{display:block;color:var(--white);font-size:1rem;margin-bottom:4px}
+  .stat span{color:var(--silver-soft);font-size:.92rem}
+  .hero-card{position:relative;padding:22px;border-radius:30px;background:linear-gradient(160deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02) 45%),linear-gradient(180deg,rgba(10,13,20,0.95),rgba(5,7,11,0.98));border:1px solid rgba(201,208,216,0.14);box-shadow:var(--shadow);overflow:hidden;min-height:530px}
+  .mock-window{position:relative;z-index:1;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:#0b0f17;height:100%;display:grid;grid-template-rows:auto 1fr}
+  .mock-top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.05);color:#cfd8e4;font-size:.88rem}
+  .dots{display:flex;gap:8px}.dots span{width:10px;height:10px;border-radius:50%;background:#6b7481}
+  .mock-body{padding:24px;display:grid;gap:18px;background:linear-gradient(180deg,rgba(6,8,12,0.72),rgba(6,8,12,0.94)),url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat}
+  .mock-chip{width:fit-content;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:var(--silver);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+  .mock-title{font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;max-width:340px;margin:0}
+  .mock-panel{align-self:end;padding:18px;border-radius:20px;background:rgba(6,8,12,0.74);border:1px solid rgba(201,208,216,0.12);backdrop-filter:blur(10px)}
+  .mock-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mock-item{padding:14px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)}
+  .mock-item strong{display:block;margin-bottom:6px;color:white}.mock-item span{color:var(--silver-soft);font-size:.92rem}
+  section{padding:40px 0}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:24px}
+  .section-head h2{margin:0;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:-.03em}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{padding:24px;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid var(--line);box-shadow:var(--shadow)}
+  .card-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;color:white;background:linear-gradient(135deg,rgba(27,152,232,0.22),rgba(201,208,216,0.14));border:1px solid rgba(201,208,216,0.12);margin-bottom:16px}
+  .card h3{margin:0 0 10px;font-size:1.18rem}.card p{margin:0;color:#cbd4df}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
+  .showcase,.pricing,.cta{padding:30px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:1px solid var(--line);box-shadow:var(--shadow)}
+  .showcase{background:linear-gradient(180deg,rgba(6,8,12,0.38),rgba(6,8,12,0.82)),url('https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;min-height:460px;display:flex;align-items:end}
+  .pricing-list{display:grid;gap:14px;margin-top:18px}
+  .price-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)}
+  .price-row strong{display:block;font-size:1rem}.price-row span{color:var(--silver-soft);font-size:.92rem}
+  .price-tag{color:var(--blue);font-weight:800;white-space:nowrap}
+  .cta{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;align-items:center;overflow:hidden;position:relative}
+  .contact-box{padding:22px;border-radius:24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);position:relative;z-index:1}
+  .contact-list{display:grid;gap:12px;margin-top:16px}
+  .contact-item{padding:14px 16px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);color:#d7deea}
+  footer{padding:30px 0 60px;color:#9ea7b3;font-size:.94rem}
+  @media(max-width:960px){.hero-grid,.split,.cta,.cards{grid-template-columns:1fr}.nav-links{display:none}}
+  @media(max-width:640px){.hero{padding-top:56px}.stat{min-width:100%}.mock-panel-grid{grid-template-columns:1fr}.btn{width:100%}.hero-actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a href="#top" class="brand"><span class="brand-top">Details by Jazz</span><span class="brand-bottom">Premium Mobile Detailing</span></a>
+    <nav class="nav-links">
+      <a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary" href="#contact">Book Now</a>
+  </div>
+</header>
+<main id="top">
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">${h.eyebrow}</div>
+      <h1><span class="silver">${h.h1a}</span><span class="blue">${h.h1b}</span></h1>
+      <p>${h.tagline}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">${h.btn1}</a>
+        <a class="btn btn-secondary" href="#photos">${h.btn2}</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>${h.stat1title}</strong><span>${h.stat1desc}</span></div>
+        <div class="stat"><strong>${h.stat2title}</strong><span>${h.stat2desc}</span></div>
+        <div class="stat"><strong>${h.stat3title}</strong><span>${h.stat3desc}</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="mock-window">
+        <div class="mock-top"><div class="dots"><span></span><span></span><span></span></div><div>detailsbyjazz.com</div></div>
+        <div class="mock-body">
+          <div class="mock-chip">Executive Standard</div>
+          <h2 class="mock-title">Premium care for vehicles that deserve a sharp presentation.</h2>
+          <div class="mock-panel"><div class="mock-panel-grid">
+            <div class="mock-item"><strong>Interior Reset</strong><span>Refined, clean, and presentable cabin finish.</span></div>
+            <div class="mock-item"><strong>Exterior Gloss</strong><span>Deep shine with sleek paint protection.</span></div>
+            <div class="mock-item"><strong>Mobile Convenience</strong><span>Delivered on-site with premium presentation.</span></div>
+            <div class="mock-item"><strong>Consistent Results</strong><span>Keep your vehicle in top shape with a monthly plan.</span></div>
+          </div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-<!-- END SLIDESHOW SECTION -->
-
-    <!-- START CONTACT SECTION -->
-    <section id="contact">
-      <div class="container">
-        <div class="cta">
-          <div>
-            <div class="eyebrow">Book Details by Jazz</div>
-            <h3 style="font-size: clamp(2rem, 4vw, 3.5rem); margin: 0 0 14px; line-height: 1; letter-spacing: -0.03em;">Ready to upgrade your vehicle’s presentation?</h3>
-            <p style="max-width: 620px; color: #d1d9e5; font-size: 1.02rem; margin: 0;">
-              Contact me today to set an appointment or for more information, Im happy to help and provide insight on services you may need.
-            </p>
-          </div>
-          <div class="contact-box">
-            <h3 style="margin-bottom:0;">Contact</h3>
-           <div class="contact-list">
-  <div class="contact-item">Phone: (808) 384-3052</div>
-  <div class="contact-item">Instagram: @detailsbyjazz</div>
-  <div class="contact-item">Service Area: Oahu, Hawaii</div>
-
-  <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
-    <a class="btn btn-primary" href="tel:18083843052">Call Now</a>
-    <a class="btn btn-secondary" href="sms:18083843052">Text Me</a>
+<section id="services">
+  <div class="container">
+    <div class="section-head"><div><h2>${s.heading}</h2></div></div>
+    <div class="cards">
+      <article class="card"><div class="card-icon">01</div><h3>${s.s1title}</h3><p>${s.s1desc}</p></article>
+      <article class="card"><div class="card-icon">02</div><h3>${s.s2title}</h3><p>${s.s2desc}</p></article>
+      <article class="card"><div class="card-icon">03</div><h3>${s.s3title}</h3><p>${s.s3desc}</p></article>
+    </div>
   </div>
-</div>
-            </div>
+</section>
+<section id="experience">
+  <div class="container split">
+    <div class="showcase"></div>
+    <div class="pricing" id="pricing">
+      <div class="eyebrow" style="margin-bottom:10px;">Service Structure</div>
+      <h3 style="font-size:2rem;margin-bottom:8px;">${p.heading}</h3>
+      <p style="color:#cbd4df;margin-top:0;">${p.sub}</p>
+      <div class="pricing-list">
+        <div class="price-row"><div><strong>${p.p1name}</strong><span>${p.p1desc}</span></div><div class="price-tag">${p.p1price}</div></div>
+        <div class="price-row"><div><strong>${p.p2name}</strong><span>${p.p2desc}</span></div><div class="price-tag">${p.p2price}</div></div>
+        <div class="price-row"><div><strong>${p.p3name}</strong><span>${p.p3desc}</span></div><div class="price-tag">${p.p3price}</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <div class="container">
+    <div class="cta">
+      <div>
+        <div class="eyebrow">Book Details by Jazz</div>
+        <h3 style="font-size:clamp(2rem,4vw,3.5rem);margin:0 0 14px;line-height:1;letter-spacing:-.03em;">${c.heading}</h3>
+        <p style="max-width:620px;color:#d1d9e5;font-size:1.02rem;margin:0;">${c.sub}</p>
+      </div>
+      <div class="contact-box">
+        <h3 style="margin-bottom:0;">Contact</h3>
+        <div class="contact-list">
+          <div class="contact-item">Phone: ${c.phone}</div>
+          <div class="contact-item">Instagram: ${c.instagram}</div>
+          <div class="contact-item">Service Area: ${c.area}</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+            <a class="btn btn-primary" href="tel:${c.phone.replace(/\D/g,'')}">Call Now</a>
+            <a class="btn btn-secondary" href="sms:${c.phone.replace(/\D/g,'')}">Text Me</a>
           </div>
         </div>
       </div>
-    </section>
-    <!-- END CONTACT SECTION -->
-  </main>
-
-  <!-- START FOOTER -->
-  <footer>
-    <div class="container">
-      © 2026 Details by Jazz. Premium mobile detailing.
     </div>
-  </footer>
-  <!-- END FOOTER -->
+  </div>
+</section>
+</main>
+<footer><div class="container">${f.text}</div></footer>
+<script async src="https://www.instagram.com/embed.js"><\/script>
+</body></html>`;
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='detailsbyjazz.html';
+  a.click();
+}
 
-  <!-- START INSTAGRAM SCRIPT -->
-  <script async src="https://www.instagram.com/embed.js"></script>
-  <!-- END INSTAGRAM SCRIPT -->
-
-<!-- START SLIDESHOW SCRIPT -->
-<script>
-  const slideshowImages = [
-    { src: 'images/porsche.jpeg', alt: 'Porsche Panamera' },
-    { src: 'images/IMG_4458.JPEG', alt: 'Completed work 2' },
-    { src: 'images/IMG_4506.jpeg', alt: 'Completed work 3' },
-    { src: 'images/slideshow4.jpg', alt: 'Completed work 4' },
-    { src: 'images/slideshow5.jpg', alt: 'Completed work 5' },
-    { src: 'images/slideshow6.jpg', alt: 'Completed work 6' },
-    { src: 'images/slideshow7.jpg', alt: 'Completed work 7' },
-    { src: 'images/slideshow8.jpg', alt: 'Completed work 8' },
-    { src: 'images/slideshow9.jpg', alt: 'Completed work 9' },
-    { src: 'images/slideshow10.jpg', alt: 'Completed work 10' },
-    { src: 'images/slideshow11.jpg', alt: 'Completed work 11' },
-    { src: 'images/slideshow12.jpg', alt: 'Completed work 12' },
-    { src: 'images/slideshow13.jpg', alt: 'Completed work 13' },
-    { src: 'images/slideshow14.jpg', alt: 'Completed work 14' },
-    { src: 'images/slideshow15.jpg', alt: 'Completed work 15' },
-    { src: 'images/slideshow16.jpg', alt: 'Completed work 16' },
-    { src: 'images/slideshow17.jpg', alt: 'Completed work 17' },
-    { src: 'images/slideshow18.jpg', alt: 'Completed work 18' },
-    { src: 'images/slideshow19.jpg', alt: 'Completed work 19' }
-  ];
-
-  let currentSlide = 0;
-
-  function renderThumbnails() {
-    const thumbsContainer = document.getElementById('slideshow-thumbs');
-    if (!thumbsContainer) return;
-
-    thumbsContainer.innerHTML = slideshowImages.map((image, index) => `
-      <img
-        src="${image.src}"
-        alt="${image.alt}"
-        onclick="setSlide(${index})"
-        style="
-          flex: 0 0 auto;
-          width: 160px;
-          height: 110px;
-          object-fit: contain;
-          object-position: center;
-          border-radius: 16px;
-          cursor: pointer;
-          border: 2px solid ${index === currentSlide ? 'rgba(27,152,232,0.75)' : 'rgba(255,255,255,0.08)'};
-          background: #0b0f17;
-        "
-      />
-    `).join('');
-  }
-
-  function updateSlide() {
-    const mainImage = document.getElementById('slideshow-image');
-    if (!mainImage || slideshowImages.length === 0) return;
-
-    mainImage.src = slideshowImages[currentSlide].src;
-    mainImage.alt = slideshowImages[currentSlide].alt;
-    renderThumbnails();
-  }
-
-  function changeSlide(direction) {
-    currentSlide = (currentSlide + direction + slideshowImages.length) % slideshowImages.length;
-    updateSlide();
-  }
-
-  function setSlide(index) {
-    currentSlide = index;
-    updateSlide();
-  }
-
-  updateSlide();
+renderPreview();
+renderFields();
 </script>
-<!-- END SLIDESHOW SCRIPT -->
-</body>
-</html>
