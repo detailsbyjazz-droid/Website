@@ -273,19 +273,6 @@
         url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
     }
 
-    .mock-chip {
-      width: fit-content;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--silver);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
     .mock-title {
       font-size: clamp(2rem, 4vw, 3.2rem);
       line-height: 1.02;
@@ -497,9 +484,38 @@
         grid-template-columns: 1fr;
       }
 
+      .nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        align-items: center;
+        text-align: center;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 16px;
+        font-size: 0.85rem;
+        width: 100%;
+      }
+
+      .nav-links a {
+        padding: 6px 0;
+      }
+
+      .topbar .btn {
+        width: auto;
+        padding: 12px 18px;
+      }
+
       .hero-card { min-height: 460px; }
       .section-head { align-items: start; flex-direction: column; }
-      .nav-links { display: none; }
     }
 
     @media (max-width: 640px) {
@@ -510,6 +526,16 @@
       .showcase, .pricing, .cta, .hero-card { padding: 20px; border-radius: 24px; }
       .btn { width: 100%; }
       .hero-actions { flex-direction: column; }
+
+      .nav-links {
+        gap: 8px 12px;
+        font-size: 0.8rem;
+      }
+
+      .topbar .btn {
+        width: 100%;
+        max-width: 220px;
+      }
     }
   </style>
 </head>
@@ -570,7 +596,6 @@
               <div>detailsbyjazz.com</div>
             </div>
             <div class="mock-body">
-            
               <h3 class="mock-title">Details by Jazz provides high-quality mobile auto detailing on Oahu</h3>
               <div class="mock-panel">
                 <div class="mock-panel-grid">
@@ -597,238 +622,6 @@
         </div>
       </div>
     </section>
-
-    <section id="services">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Services Provided</h2>
-          </div>
-          <p></p>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <div class="card-icon">01</div>
-            <h3>Interior Detailing</h3>
-            <p>Keep your vehicle feeling clean, comfortable, and refreshed with professional interior detailing services on Oahu. We provide deep interior cleaning for cars, trucks, SUVs, and daily drivers, including vacuuming, wipe-downs, stain treatment, surface cleaning, and attention to the areas that collect the most dust, dirt, and buildup. Whether you’re in Honolulu, Kapolei, Ewa Beach, Waipahu, Pearl City, Aiea, Mililani, Kaneohe, Kailua, or Wahiawa, our mobile auto detailing service brings quality interior care right to your home or workplace.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon">02</div>
-            <h3>Exterior Detailing</h3>
-            <p>Our exterior detailing service is designed to restore shine, improve presentation, and help protect your vehicle from Oahu’s sun, salt air, rain, and road grime. We carefully wash, clean, and enhance your vehicle’s exterior with services that may include foam wash treatment, wheel cleaning, tire dressing, paint decontamination, and protective sealants. From Waikiki and Honolulu to Kapolei, Ewa Beach, Pearl City, Mililani, Kaneohe, Kailua, and surrounding Oahu communities, we help keep your vehicle looking polished and well-maintained.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon">03</div>
-            <h3>Premium Full Service</h3>
-            <p>For drivers who want a more complete transformation, our premium full-service auto detailing combines both interior and exterior detailing for a thorough reset. This is a great option for busy professionals, families, commuters, rideshare drivers, and anyone who wants their vehicle looking its best without the hassle of going to a shop. We proudly offer mobile auto detailing across Oahu, serving areas including Honolulu, Kapolei, Ewa Beach, Waipahu, Pearl City, Aiea, Mililani, Kaneohe, Kailua, and Wahiawa with convenient on-site service and professional results.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="videos">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Recent Work</h2>
-          </div>
-          <p>
-            Watch recent detailing results directly from Instagram and follow @detailsbyjazz for more premium transformations.
-          </p>
-        </div>
-        <div class="cards" style="align-items: start;">
-          <article class="card" style="padding: 14px; overflow: hidden;">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DWvayIHABR4/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:18px; box-shadow:0 0 1px 0 rgba(0,0,0,0.35),0 8px 24px 0 rgba(0,0,0,0.12); margin:0 auto; max-width:540px; min-width:280px; padding:0; width:100%;"></blockquote>
-          </article>
-          <article class="card" style="padding: 14px; overflow: hidden;">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DWpyyy9gGHS/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:18px; box-shadow:0 0 1px 0 rgba(0,0,0,0.35),0 8px 24px 0 rgba(0,0,0,0.12); margin:0 auto; max-width:540px; min-width:280px; padding:0; width:100%;"></blockquote>
-          </article>
-          <article class="card" style="padding: 14px; overflow: hidden;">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DVPABImkmP_/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:18px; box-shadow:0 0 1px 0 rgba(0,0,0,0.35),0 8px 24px 0 rgba(0,0,0,0.12); margin:0 auto; max-width:540px; min-width:280px; padding:0; width:100%;"></blockquote>
-          </article>
-        </div>
-        <div style="margin-top: 20px; display: flex; justify-content: center;">
-          <a class="btn btn-primary" href="https://www.instagram.com/detailsbyjazz/" target="_blank" rel="noopener noreferrer">Follow @detailsbyjazz</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience">
-      <div class="container">
-        <div class="pricing" id="pricing">
-          <div class="eyebrow" style="margin-bottom:10px;">Service Structure</div>
-          <h3 style="font-size:2rem; margin-bottom:8px;">Simple packages, elevated presentation</h3>
-          <p style="color:#cbd4df; margin-top:0;">Final price decided based on condition of vehicle.</p>
-          <div class="pricing-list">
-            <div class="price-row">
-              <div>
-                <strong>Maintenance Detail</strong>
-                <span>Ideal for routine upkeep and clean presentation.</span>
-              </div>
-              <div class="price-tag">From $200</div>
-            </div>
-            <div class="price-row">
-              <div>
-                <strong>Premium Inside / Out</strong>
-                <span>Balanced interior reset and exterior gloss.</span>
-              </div>
-              <div class="price-tag">From $300</div>
-            </div>
-            <div class="price-row">
-              <div>
-                <strong>Correction + Protection</strong>
-                <span>Higher-end finish for standout presentation.</span>
-              </div>
-              <div class="price-tag">Custom Quote</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="slideshow">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Completed Work Gallery</h2>
-          </div>
-          <p></p>
-        </div>
-
-        <div class="showcase" style="background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); min-height: unset; display: block; padding: 22px;">
-          <div style="position: relative; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #0b0f17;">
-            <img id="slideshow-image" src="" alt="Completed detailing work" style="width: 100%; height: 560px; object-fit: contain; object-position: center; display: block; background: #0b0f17;" />
-            <button type="button" onclick="changeSlide(-1)" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(6,8,12,0.68); color: white; font-size: 1.4rem; cursor: pointer;">&#10094;</button>
-            <button type="button" onclick="changeSlide(1)" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(6,8,12,0.68); color: white; font-size: 1.4rem; cursor: pointer;">&#10095;</button>
-          </div>
-
-          <div
-            id="slideshow-thumbs"
-            class="slideshow-thumbs"
-            style="
-              display: flex;
-              gap: 14px;
-              margin-top: 16px;
-              overflow-x: auto;
-              padding-bottom: 8px;
-              scroll-behavior: smooth;
-            ">
-          </div>
-
-          <div style="margin-top: 16px; color: #9ea7b3; font-size: 0.95rem;">
-            We’ve worked on a wide range of vehicles, including Toyota, Honda, Nissan, Mazda, Subaru, Lexus, BMW, Mercedes-Benz, Audi, Porsche, Tesla, Ford, Chevrolet, GMC, Jeep, Dodge, RAM, Hyundai, Kia, and Volkswagen. All images on this site belong to me. All work completed by Details by Jazz.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="container">
-        <div class="cta">
-          <div>
-            <div class="eyebrow">Book Details by Jazz</div>
-            <h3 style="font-size: clamp(2rem, 4vw, 3.5rem); margin: 0 0 10px; line-height: 1; letter-spacing: -0.03em;">
-              Ready to Book Mobile Auto Detailing on Oahu?
-            </h3>
-            <p style="max-width: 620px; color: #d1d9e5; font-size: 1.02rem; margin: 0;">
-              If you’re looking for professional auto detailing we’d love to help.
-            </p>
-          </div>
-          <div class="contact-box">
-            <h3 style="margin-bottom:0;">Contact</h3>
-            <div class="contact-list">
-              <div class="contact-item">Phone: (808) 384-3052</div>
-              <div class="contact-item">Instagram: @detailsbyjazz</div>
-              <div class="contact-item">Service Area: Oahu, Hawaii</div>
-
-              <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
-                <a class="btn btn-primary" href="tel:18083843052">Call Now</a>
-                <a class="btn btn-secondary" href="sms:18083843052">Text Me</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
-
-  <footer>
-    <div class="container">
-      © 2026 Details by Jazz Details by Jazz provides mobile auto detailing in Oahu, Hawaii, including Honolulu, Kapolei, Ewa Beach, Waipahu, Pearl City, Aiea, Mililani, Kailua, Kaneohe, Hawaii Kai, Waikiki, and nearby communities. Our services include interior detailing, exterior detailing, full car detailing, and premium vehicle care for drivers across the island. Premium mobile detailing.
-    </div>
-  </footer>
-
-  <script async src="https://www.instagram.com/embed.js"></script>
-
-  <script>
-    const slideshowImages = [
-      { src: 'images/porsche.jpeg', alt: 'Porsche Panamera' },
-      { src: 'images/IMG_4458.JPEG', alt: 'Completed work 2' },
-      { src: 'images/IMG_4506.jpeg', alt: 'Completed work 3' },
-      { src: 'images/slideshow4.jpg', alt: 'Completed work 4' },
-      { src: 'images/slideshow5.JPEG', alt: 'Completed work 5' },
-      { src: 'images/slideshow6.JPEG', alt: 'Completed work 6' },
-      { src: 'images/slideshow7.JPEG', alt: 'Completed work 7' },
-      { src: 'images/slideshow8.JPEG', alt: 'Completed work 8' },
-      { src: 'images/slideshow9.JPEG', alt: 'Completed work 9' },
-      { src: 'images/slideshow10.JPEG', alt: 'Completed work 10' },
-      { src: 'images/slideshow11.JPEG', alt: 'Completed work 11' },
-      { src: 'images/slideshow12.JPEG', alt: 'Completed work 12' },
-      { src: 'images/slideshow13.JPEG', alt: 'Completed work 13' },
-      { src: 'images/slideshow14.JPEG', alt: 'Completed work 14' },
-      { src: 'images/slideshow15.JPEG', alt: 'Completed work 15' },
-      { src: 'images/slideshow16.JPEG', alt: 'Completed work 16' },
-      { src: 'images/slideshow17.JPEG', alt: 'Completed work 17' },
-      { src: 'images/slideshow18.JPEG', alt: 'Completed work 18' },
-      { src: 'images/slideshow19.JPEG', alt: 'Completed work 19' }
-    ];
-
-    let currentSlide = 0;
-
-    function renderThumbnails() {
-      const thumbsContainer = document.getElementById('slideshow-thumbs');
-      if (!thumbsContainer) return;
-
-      thumbsContainer.innerHTML = slideshowImages.map((image, index) => `
-        <img
-          src="${image.src}"
-          alt="${image.alt}"
-          onclick="setSlide(${index})"
-          style="
-            flex: 0 0 auto;
-            width: 160px;
-            height: 110px;
-            object-fit: contain;
-            object-position: center;
-            border-radius: 16px;
-            cursor: pointer;
-            border: 2px solid ${index === currentSlide ? 'rgba(27,152,232,0.75)' : 'rgba(255,255,255,0.08)'};
-            background: #0b0f17;
-          "
-        />
-      `).join('');
-    }
-
-    function updateSlide() {
-      const mainImage = document.getElementById('slideshow-image');
-      if (!mainImage || slideshowImages.length === 0) return;
-
-      mainImage.src = slideshowImages[currentSlide].src;
-      mainImage.alt = slideshowImages[currentSlide].alt;
-      renderThumbnails();
-    }
-
-    function changeSlide(direction) {
-      currentSlide = (currentSlide + direction + slideshowImages.length) % slideshowImages.length;
-      updateSlide();
-    }
-
-    function setSlide(index) {
-      currentSlide = index;
-      updateSlide();
-    }
-
-    updateSlide();
-  </script>
 </body>
 </html>
