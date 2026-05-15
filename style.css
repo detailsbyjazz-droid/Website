@@ -18,7 +18,7 @@ a{color:inherit;text-decoration:none}
 .eyebrow{display:inline-flex;color:var(--silver);border:1px solid var(--line);background:rgba(255,255,255,.05);padding:7px 12px;border-radius:999px;font-size:.82rem;margin-bottom:18px}
 h1,h2,h3{line-height:1.1;margin:0 0 16px}h1{font-size:clamp(2.6rem,7vw,5.5rem);letter-spacing:-.06em}h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.045em}
 .lead{font-size:1.12rem;color:var(--muted);max-width:680px}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
-.hero-card,.photo-card{min-height:440px;border:1px solid var(--line);border-radius:32px;background:linear-gradient(180deg,rgba(5,7,11,.1),rgba(5,7,11,.82)),url('images/hero-detail.jpg') center/cover no-repeat;box-shadow:0 24px 80px rgba(0,0,0,.45)}
+.hero-card,.photo-card{min-height:440px;border:1px solid var(--line);border-radius:32px;background:linear-gradient(180deg,rgba(5,7,11,.1),rgba(5,7,11,.82)),url('images/Teslaimage.jpg') center/cover no-repeat;box-shadow:0 24px 80px rgba(0,0,0,.45)}
 .section{padding:74px 0}.section-header{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:32px}.section-header p{color:var(--muted);max-width:520px;margin:0}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));border-radius:26px;padding:26px;box-shadow:0 16px 50px rgba(0,0,0,.22)}
